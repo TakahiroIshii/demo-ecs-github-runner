@@ -5,7 +5,6 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import * as ssm from '@aws-cdk/aws-ssm';
 import * as iam from '@aws-cdk/aws-iam';
 import { CfnParameter } from '@aws-cdk/core';
-import { Repository } from '@aws-cdk/aws-ecr';
 
 export class DemoEcsGithubRunnerSpotStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -23,7 +22,7 @@ export class DemoEcsGithubRunnerSpotStack extends cdk.Stack {
       vpc,
       minCapacity: 1,
       maxCapacity: 1,
-      instanceType: new ec2.InstanceType('t3.small'),
+      instanceType: new ec2.InstanceType('t3.large'),
       machineImage: ecs.EcsOptimizedImage.amazonLinux2(),
     });
 
@@ -55,9 +54,9 @@ export class DemoEcsGithubRunnerSpotStack extends cdk.Stack {
       environment: {
         RUNNER_NAME: `ecsRunner`,
       },
-      image: ecs.ContainerImage.fromEcrRepository(Repository.fromRepositoryName(this, 'nodeRepository', 'node_runner')),
+      image: ecs.ContainerImage.fromRegistry('myoung34/github-runner'),
       logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'actionRunner' }),
-      memoryLimitMiB: 500,
+      memoryLimitMiB: 5000,
       secrets: {
         ACCESS_TOKEN: ecs.Secret.fromSsmParameter(
           ssm.StringParameter.fromSecureStringParameterAttributes(this, 'gitHubAccessToken', {
