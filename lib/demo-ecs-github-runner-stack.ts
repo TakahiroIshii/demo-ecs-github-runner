@@ -22,7 +22,7 @@ export class DemoEcsGithubRunnerStack extends cdk.Stack {
       vpc,
       minCapacity: 1,
       maxCapacity: 1,
-      instanceType: new ec2.InstanceType('t3.large'),
+      instanceType: new ec2.InstanceType('t3.xlarge'),
       machineImage: ecs.EcsOptimizedImage.amazonLinux2(),
     });
 
