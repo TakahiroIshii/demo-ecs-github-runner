@@ -1,8 +1,8 @@
 {
-  "name": "demo-ecs-github-runner-spot",
+  "name": "demo-ecs-github-runner",
   "version": "0.1.0",
   "bin": {
-    "demo-ecs-github-runner-spot": "bin/demo-ecs-github-runner-spot.js"
+    "demo-ecs-github-runner": "bin/demo-ecs-github-runner.js"
   },
   "scripts": {
     "build": "tsc",
