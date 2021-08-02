@@ -52,7 +52,7 @@ export class DemoEcsGithubRunnerStack extends cdk.Stack {
 
     const containerDefinition = taskDefinition.addContainer('actionsRunnerContainer', {
       environment: {
-        RUNNER_NAME: `ecsRunner`,
+        RUNNER_NAME_PREFIX: `ecsRunner`,
       },
       image: ecs.ContainerImage.fromRegistry('myoung34/github-runner'),
       logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'actionRunner' }),
@@ -81,7 +81,7 @@ export class DemoEcsGithubRunnerStack extends cdk.Stack {
 
     const ecsTaskDesiredCount = new CfnParameter(this, 'ecsTaskDesiredCount', {
       type: 'Number',
-      default: 1,
+      default: 2,
       description: 'The name of ecs task count.',
     });
 
